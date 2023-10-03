@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Gabarito&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gabarito', cursive;
+
+}
+
+header{
+    box-shadow: 0px 2px 24px black !important;
+    margin-bottom: 40px;
+}
+
+h1{
+    margin: 0;
+    padding: 10px;
+    font-size: 45px;
+    text-align: center;
+    background-color: rgb(250, 45, 45);
+    color: rgb(243, 243, 235);
+    text-shadow: 2px 2px 2px rgb(83, 83, 83);
+    font-family: 'Gabarito', cursive;
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 25px;
+}
+
+#title{
+    font-size: 40px;
+}
+
+#description{
+    font-size: 20px;
+}
+
+
+#inputUrl{
+    border-radius: 20px;
+    width: 500px;
+    padding: 9px;
+    margin-top: 12px;
+    font-size: 16px;
+}
+
+#btnSearch{
+    background-color: rgb(250, 45, 45);
+    padding: 8px;
+    font-family: 'Gabarito';
+    font-weight: 500;
+    font-size: 16px ;
+    color: rgb(243, 243, 235);
+    text-shadow: 2px 2px 2px rgb(17, 15, 15);
+    border-radius: 15px;
+    border: 1px solid rgb(250, 45, 45);
+    width: 150px;
+}
+
+#btnSearch:hover{
+    background-color: rgb(255, 68, 68); 
+    cursor: pointer;
+}
+
+
+#result{
+    margin-top: 20px;
+}
+
+#loader{
+    width: 90px;
+    height: 90px;
+    border: 12px solid white;
+    border-radius: 50%;
+    border-right-color: red;
+    animation: spin 1s ease infinite;
+    display: none;
+}
+
+@keyframes spin{
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:visited{
+    color: black;
+}
+
+#divContacts{
+    margin-top: 12px;
+    padding: 12px;
+    text-align: center;
+    font-size: 20px;
+}
+
+#divContacts a:hover{
+    font-size: 25px;
+}
+
