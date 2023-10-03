@@ -4,6 +4,10 @@ Una sencilla página que al ingresar una URL de una playlist de YouTube (o un vi
 
 Utiliza YouTube Data API V3.
 
+Disponible en: https://martinacosta-dev.github.io/youtubePlaylistDuration.github.io/
+
 A simple page that when entering a URL of a YouTube playlist (or a YouTube video) queries the public YouTube Data API V3 and returns the total duration of the playlist in hours-minutes-seconds.
 
 Use YouTube Data API V3.
+
+Deployed at: https://martinacosta-dev.github.io/youtubePlaylistDuration.github.io/
