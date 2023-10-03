@@ -8,13 +8,19 @@ botonConsultar.addEventListener('click', function(){
   if( playlistURL=="" ){
     return;
   }else{
+
+    if(document.getElementById("divResult").innerHTML != ''){
+      document.getElementById("divResult").style.display = "none"
+      document.getElementById("divResult").innerHTML = ""
+    }
+
     loader("show");
 
     const playlistId = playlistURL.split("list=")[1].split("&")[0];
   
     getDuration(playlistId);
-  
-    //loader("hide")
+
+
   }
   
 })
