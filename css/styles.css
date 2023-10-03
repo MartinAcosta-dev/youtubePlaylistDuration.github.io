@@ -78,7 +78,7 @@ h1{
     height: 90px;
     border: 12px solid white;
     border-radius: 50%;
-    border-right-color: red;
+    border-right-color: rgb(255, 68, 68); 
     animation: spin 1s ease infinite;
     display: none;
 }
@@ -87,6 +87,33 @@ h1{
     100%{
         transform: rotate(360deg);
     }
+}
+
+#divResult{
+    background-color: rgba(221, 219, 212, 0.918); 
+    border-radius: 8px;
+    width: 600px;
+    text-align: center;
+    font-size: 30px;
+    padding: 10px;
+}
+
+img{
+    width: 250px;
+    margin-top: 20px;
+}
+
+#durationText{
+    font-size: 15px;
+}
+
+#duration{
+    font-size: 40px;
+}
+
+
+#labelDuration{
+    font-size: 17px;
 }
 
 

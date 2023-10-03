@@ -6,6 +6,23 @@ export const loader = (action) => {
     }
 }
 
+const showDuration = (playlistInfo) => {
+
+  let results = `
+    <div id="playlistTitle">${playlistInfo.title}</div>
+    <img src="${playlistInfo.thumbnail}" alt="Playlist Thumbnail" title="Playlist Thumbnail">
+    <div id="durationText">Duración:</div>
+    <div id="duration">${playlistInfo.totalDuration}</div>
+    <div id="labelDuration">(Horas, minutos, segundos)</div>
+  `;
+
+  loader("hide");
+
+  document.getElementById("divResult").style.display = "block"
+  document.getElementById("divResult").innerHTML = results;
+
+}
+
 export const apiKey = "AIzaSyDC3yFD2q3dXju7Bfr5xSrG2S-5AJhjTXo";
 
 
@@ -13,17 +30,9 @@ export const getDuration = async function (playlistId){
 
     let urlPlayList = "https://www.googleapis.com/youtube/v3/playlistItems?key="+apiKey+"&playlistId="+playlistId+"&part=snippet&maxResults=50";
 
-    let res = await getPlaylistDuration(urlPlayList);
+    let playlistInfo = await getPlaylistDuration(urlPlayList);
     
-    let p = document.getElementById("result");
-  
-    p.innerHTML = '';
-  
-    p.innerHTML = res;
-  
-    let strHours = document.getElementById("strHours");
-  
-    strHours.style.display = "block";
+    showDuration(playlistInfo)
   
 }
   
@@ -31,17 +40,25 @@ export const getDuration = async function (playlistId){
   
 const getVideosAsync = async (urlPlaylist) => {
     
-    var arrayVideos = [];
+  let playlistInfo = {
+    "title": "",
+    "thumbnail": "",
+    "arrayVideos": []
+  }
   
-    try {
-        let resPlaylist = await fetch(urlPlaylist)
+  try {
+      let resPlaylist = await fetch(urlPlaylist)
       let playlist = await resPlaylist.json();
      
+      playlistInfo.title = playlist.items[0].snippet.title;
+
+      playlistInfo.thumbnail = playlist.items[0].snippet.thumbnails.high.url;
+
       playlist.items.forEach(element => {
-        arrayVideos.push(element.snippet.resourceId.videoId)
+        playlistInfo.arrayVideos.push(element.snippet.resourceId.videoId)
       });
   
-      return arrayVideos; //Devuelve un vector lleno de IDs de videos
+    return playlistInfo; //Devuelve un array lleno de IDs de videos
   
     } catch (error) {
       console.log(error)
@@ -50,8 +67,7 @@ const getVideosAsync = async (urlPlaylist) => {
   
 async function getArrayDurations (arreglo){
   
-    var arrayDurations = [];
-     
+    let arrayDurations = []; 
   
     for(var i=0; i<arreglo.length;i++){
   
@@ -75,16 +91,18 @@ async function getArrayDurations (arreglo){
 async function getPlaylistDuration(urlPlayList){ 
     //Toma el array devuelto por getVideosAsync y por cada uno consulta a la api
   
-    var totalDuration = 0;
-    var videos = await getVideosAsync(urlPlayList);
+    let totalDuration = 0;
+    let playlistInfo = await getVideosAsync(urlPlayList);
   
+    let videos = playlistInfo.arrayVideos;
+
     try {
       
-      var arrayDurations = await getArrayDurations(videos);
+      let arrayDurations = await getArrayDurations(videos);
   
       arrayDurations.forEach(element => {
-        var duration = moment.duration(element); //Convertimos la duracion de iso 8006 a objeto tiempo
-        duration = duration._milliseconds; //Obtenemos 
+        let duration = moment.duration(element); //Convertimos la duracion de iso 8006 a objeto tiempo
+        duration = duration._milliseconds; 
      
         totalDuration = totalDuration + duration;
   
@@ -92,8 +110,13 @@ async function getPlaylistDuration(urlPlayList){
   
   
       totalDuration = moment.utc(totalDuration).format('HH:mm:ss');
-      
-      return totalDuration;
+    
+
+      return ({
+        "title": playlistInfo.title,
+        "thumbnail": playlistInfo.thumbnail,
+        "totalDuration": totalDuration        
+      });
   
   
     } catch (error) {
